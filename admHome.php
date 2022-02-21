@@ -1,4 +1,7 @@
 <?php
+session_start();
+$value = $_SESSION['user'];
+
 
 ?>
 
@@ -9,7 +12,7 @@
 
 <head>
     <title> Decoração presentes</title>
-    <link rel="stylesheet" type="text/css" href="index.css">
+    <link rel="stylesheet" type="text/css" href="styleAdmHome.css">
 </head>
 <style>
     ul {
@@ -40,15 +43,14 @@
 <body class="site">
     <div class="body">
         <div class="topnav">
-            <h3 class="login"><a HREF="login.php?p=login" style="text-decoration: none; color:white">Login</a></h3>
+            <h3 style="text-decoration: none; color:white;  font-family:Arial, Helvetica, sans-serif ; text-align: center"> Bem vindo <?php echo $value ?></h3>
+            <h3 class="login"><a HREF="index.php?p=index" style="text-decoration: none; color:white">Sair</a></h3>
             <div class="imgLogo">
                 <img src="imgProject/semFundo.png" width="400px" height="120px">
-                <input type="text" name="pesquisa" class="pesquisa" placeholder="O que você esta procurando?" style="margin-left:10% ;">
                 <ul>
-                    <li><a href="#home">HOME</a></li>
-                    <li><a href="#news">NOVIDADES</a></li>
-                    <li><a href="#contact">CONTATO</a></li>
-                    <li><a href="#about">SOBRE</a></li>
+                    <li><a href="">PRODUTOS</a></li>
+                    <li><a href="adicionarProduto.php">ADICINAR</a></li>
+
                 </ul>
             </div>
         </div>
