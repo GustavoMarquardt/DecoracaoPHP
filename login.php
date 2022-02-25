@@ -22,7 +22,7 @@ if (isset($_POST['email']) && empty($_POST['email']) == false) {
             $dado = $sql->fetch();
             $_SESSION['id'] = $dado['id'];
             $_SESSION['user'] = $email; 
-            header("Location: admHome.php");
+            header("Location: admHomeListarProdutos.php");
         }
     } catch (PDOException $e) {
         echo "Falhou: " . $e->getMessage();

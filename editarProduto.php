@@ -1,30 +1,11 @@
 <?php
 session_start();
+include_once 'pdoconfig.php';
 $value = $_SESSION['user'];
-
-//faz a conexão com o banco de dados
-$dns = "mysql:dbname=decoracao;host=localhost";
-$user = "root";
-$pass = "";
-try {
-    $pdo = new PDO($dns, $user, $pass);
-    $msg = false;
-    if (isset($_FILES['arquivo'])) {
-
-        $extensao = strtolower(substr($_FILES['arquivo']['name'], -4));
-        $novo_nome = md5(time()) . $extensao;
-        $diretorio = "upload/";
-
-        move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio . $novo_nome); //move o arquivo para a pasta upload
-
-        $sql =$pdo->prepare("INSERT INTO produtos (id, nome, descricao, preco, imagem, tag, dataEnvio) VALUES (null,'$_POST[nome]', '$_POST[descricao]', '$_POST[preco]', '$novo_nome', '$_POST[tag]', NOW())") ;
-        $sql->execute();
-    }
-
-} catch (PDOException $e) {
-    echo "Falhou: " . $e->getMessage();
-}
-
+$id = $_GET['id'];
+$sql = "SELECT * FROM produtos WHERE id=$id";
+$result = mysqli_query($link, $sql);
+$array = mysqli_fetch_assoc($result);
 ?>
 
 
@@ -138,12 +119,13 @@ try {
         cursor: pointer;
         position: relative;
     }
+
     .topnav {
-    background-color: 	#696969;
-    overflow: hidden;
-    display: inline-block;
-    width: 100%;
-  }
+        background-color: #696969;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+    }
 </style>
 
 <body class="site" style="margin-bottom: 5%;">
@@ -164,30 +146,30 @@ try {
 
         <div class="formProdutos" style="background-color:#696969">
             <h1 style=" margin:5%;margin-top:3%; text-align: center">Adicionar produtos</h1>
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" action="controleImg.php?acao=edit&id=<?=$id?>">
                 <ul>
                     <li>
                         <label for="nome">Nome:</label>
-                        <input type="text" name="nome" id="nome" placeholder="Nome do produto" class="form__input" require style=" margin:2%">
+                        <input type="text" name="nome" id="nome" placeholder="Nome do produto" class="form__input" require style=" margin:2%" value="<?php echo htmlspecialchars($array['nome']) ?>">
                     </li>
                     <li>
                         <label for="preco">Preço:</label>
-                        <input type="number" name="preco" id="preco" placeholder="Preço do produto" class="form__input" require>
+                        <input type="number" name="preco" id="preco" placeholder="Preço do produto" class="form__input" require value="<?php echo $array['preco'] ?>">
                     </li>
                 </ul>
 
                 <ul>
                     <li>
                         <label for="nome">Descrição:</label>
-                        <textarea type="text" name="descricao" id="descricao" placeholder="Descrição do produto" cols="40" rows="6" class="form__input" style="margin:2%"></textarea>
+                        <textarea type="text" name="descricao" id="descricao" placeholder="Descrição do produto" class="form__input" style="margin:2%" cols="40" rows="6" value="<?php echo htmlspecialchars($array['descricao']); ?>"></textarea>
                     </li>
                     <li>
                         <label for="preco">Tag:</label>
-                        <input type="text" name="tag" id="tag" placeholder="Tag do produto" class="form__input" require>
+                        <input type="text" name="tag" id="tag" placeholder="Tag do produto" class="form__input" require value="<?php echo $array['tag'] ?>">
                     </li>
-                    <div class="inputFile" style="margin-top:2%">
+                    <!-- <div class="inputFile" style="margin-top:2%">
                         <input type="file" name="arquivo" id="arquivo">
-                    </div>
+                    </div> -->
                     <input type="submit" value="Enviar" class="btn" style="margin-top: 2%; margin-bottom: 5%;">
                 </ul>
             </form>
