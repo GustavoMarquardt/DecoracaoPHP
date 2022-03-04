@@ -168,7 +168,7 @@ try {
                 <ul>
                     <li>
                         <label for="nome">Nome:</label>
-                        <input type="text" name="nome" id="nome" placeholder="Nome do produto" class="form__input" require style=" margin:2%">
+                        <input type="text" name="nome" id="nome" placeholder="Nome do produto" class="form__input" require style=" margin: botton 2%;">
                     </li>
                     <li>
                         <label for="preco">Preço:</label>

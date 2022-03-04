@@ -15,6 +15,7 @@ include 'pdoconfig.php';
 <head>
     <title> Decoração presentes</title>
     <link rel="stylesheet" type="text/css" href="styleAdmHome.css">
+    
 </head>
 <style>
     ul {
@@ -34,6 +35,9 @@ include 'pdoconfig.php';
         text-decoration: none;
         color: white;
         font-family: "Arial", Helvetica, sans-serif;
+    }
+    h3 {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
 
     .site {
@@ -108,11 +112,12 @@ include 'pdoconfig.php';
                     ">
                     <h3 style=""><?php echo $array['nome'] ?></h3>
                     <h3>R$ <?php echo $array['preco'] ?></h3>
-                    <a href="editarProduto.php?id=<?= $array['id']; ?>" class="bn3637 bn37">Editar</a>
-                    <a href="controleImg.php?acao=excluir&id=<?= $array['id']; ?>" class="bn3637 bn37" onclick="return confirm('Deseja excluir o produto?')">Excluir</a>
+                    <a href="editarProduto.php?id=<?= $array['id']; ?>" class="bn3637 bn37" style="color:white">Editar</a>
+                    <a href="controleImg.php?acao=excluir&id=<?= $array['id']; ?>" class="bn3637 bn37" style="color:white"  onclick="return confirm('Deseja excluir o produto?')">Excluir</a>
                 </div>
             <?php } ?>
         </div>
+        
 </body>
 
 </html>
