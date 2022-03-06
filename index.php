@@ -158,7 +158,7 @@ $total_produtos = mysqli_num_rows($resultado_produto);
         padding: 0.5rem 1rem;
         transition: 0.3s;
         margin-left: auto;
-
+ 
     }
 </style>
 
@@ -189,9 +189,9 @@ $total_produtos = mysqli_num_rows($resultado_produto);
             <h2 style="font-family:  'Arial', Helvetica, sans-serif;">Filtros</h2>
             <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
         </div>
-        <div style="float:right; margin-right:4%;">
+        <!-- <div style="float:right; margin-right:4%;">
             <h3>Total de produtos: <?php echo $total_produtos; ?></h3>
-        </div>
+        </div> -->
 
         <script>
             function openNav() {
@@ -205,7 +205,7 @@ $total_produtos = mysqli_num_rows($resultado_produto);
 
         <div class="container theme-showcase" role="main">
 
-            <div class="row">
+            <div class="row" style="margin-left:4%">
                 <?php while ($rows_produtos = mysqli_fetch_assoc($resultado_produto)) { ?>
                     <div class="col-sm-6 col-md-4">
                         <div class="thumbnail">
@@ -243,7 +243,7 @@ $total_produtos = mysqli_num_rows($resultado_produto);
                         <?php
                         //Apresentar a paginacao
                         for ($i = 1; $i < $num_pagina + 1; $i++) { ?>
-                            <li class="page-link"><a href="index.php?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
+                            <li class="page-link"><a style="color: #000;" href="index.php?pagina=<?php echo $i; ?>"><?php echo $i; ?></a></li>
                         <?php } ?>
                         <li class="page-link">
                             <?php

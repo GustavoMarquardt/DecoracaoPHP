@@ -1,11 +1,17 @@
 <?php
 session_start();
 $value = $_SESSION['user'];
-
+include_once 'pdoconfig.php';
 //faz a conexão com o banco de dados
 $dns = "mysql:dbname=decoracao;host=localhost";
 $user = "root";
 $pass = "";
+$sql = ("SELECT * FROM tags ORDER BY tag ASC");
+$result = mysqli_query($link, $sql);
+$row = mysqli_num_rows($result);
+
+       
+
 try {
     $pdo = new PDO($dns, $user, $pass);
     $msg = false;
@@ -17,10 +23,9 @@ try {
 
         move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio . $novo_nome); //move o arquivo para a pasta upload
 
-        $sql =$pdo->prepare("INSERT INTO produtos (id, nome, descricao, preco, imagem, tag, dataEnvio) VALUES (null,'$_POST[nome]', '$_POST[descricao]', '$_POST[preco]', '$novo_nome', '$_POST[tag]', NOW())") ;
+        $sql = $pdo->prepare("INSERT INTO produtos (id, nome, descricao, preco, imagem, tag, dataEnvio) VALUES (null,'$_POST[nome]', '$_POST[descricao]', '$_POST[preco]', '$novo_nome', '$_POST[tag]', NOW())");
         $sql->execute();
     }
-
 } catch (PDOException $e) {
     echo "Falhou: " . $e->getMessage();
 }
@@ -35,6 +40,7 @@ try {
 <head>
     <title> Decoração presentes</title>
     <link rel="stylesheet" type="text/css" href="styleAdmHome.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 </head>
 <style>
     ul {
@@ -138,12 +144,13 @@ try {
         cursor: pointer;
         position: relative;
     }
+
     .topnav {
-    background-color: 	#696969;
-    overflow: hidden;
-    display: inline-block;
-    width: 100%;
-  }
+        background-color: #696969;
+        overflow: hidden;
+        display: inline-block;
+        width: 100%;
+    }
 </style>
 
 <body class="site" style="margin-bottom: 5%;">
@@ -156,7 +163,7 @@ try {
                 <ul>
                     <li><a href="admHomeListarProdutos.php">PRODUTOS</a></li>
                     <li><a href="adicionarProduto.php">ADICINAR</a></li>
-
+                    <li><a href="gerenciadorTags.php">TAGS</a></li>
                 </ul>
             </div>
         </div>
@@ -169,6 +176,7 @@ try {
                     <li>
                         <label for="nome">Nome:</label>
                         <input type="text" name="nome" id="nome" placeholder="Nome do produto" class="form__input" require style=" margin: botton 2%;">
+
                     </li>
                     <li>
                         <label for="preco">Preço:</label>
@@ -182,10 +190,22 @@ try {
                         <textarea type="text" name="descricao" id="descricao" placeholder="Descrição do produto" cols="40" rows="6" class="form__input" style="margin:2%"></textarea>
                     </li>
                     <li>
+                        <div>
                         <label for="preco">Tag:</label>
-                        <input type="text" name="tag" id="tag" placeholder="Tag do produto" class="form__input" require>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                               
+                                </div>
+                                <select class="custom-select" name="tag" id="inputGroupSelect01" style=" width:96%; height:10%;margin-left:2%;margin-right:2%">
+                              
+                                    <?php
+                                    while($row = mysqli_fetch_assoc($result)  ) {
+                                        echo "<option required value='".$row['id']."'>".$row['tag']."</option>";
+
+                                    }?>
+                            </div>
                     </li>
-                    <div class="inputFile" style="margin-top:2%">
+                    <div class="inputFile" style="margin-top:20%">
                         <input type="file" name="arquivo" id="arquivo">
                     </div>
                     <input type="submit" value="Enviar" class="btn" style="margin-top: 2%; margin-bottom: 5%;">

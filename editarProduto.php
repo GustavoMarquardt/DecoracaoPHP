@@ -6,6 +6,11 @@ $id = $_GET['id'];
 $sql = "SELECT * FROM produtos WHERE id=$id";
 $result = mysqli_query($link, $sql);
 $array = mysqli_fetch_assoc($result);
+
+$sql = ("SELECT * FROM tags ORDER BY tag ASC");
+$resultTag = mysqli_query($link, $sql);
+$rowTag = mysqli_num_rows($result);
+
 ?>
 
 
@@ -164,8 +169,18 @@ $array = mysqli_fetch_assoc($result);
                         <textarea type="text" name="descricao" id="descricao" placeholder="Descrição do produto" class="form__input" style="margin:2%" cols="40" rows="6" value="<?php echo htmlspecialchars($array['descricao']); ?>"></textarea>
                     </li>
                     <li>
-                        <label for="preco">Tag:</label>
-                        <input type="text" name="tag" id="tag" placeholder="Tag do produto" class="form__input" require value="<?php echo $array['tag'] ?>">
+                    <label for="preco">Tag:</label>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                               
+                                </div>
+                                <select class="custom-select" name="tag" id="inputGroupSelect01" style=" width:96%; height:10%;margin-left:2%;margin-right:2%">
+                              
+                                    <?php
+                                    while($rowTag = mysqli_fetch_assoc($resultTag)  ) {
+                                        echo "<option required value='".$rowTag['id']."'>".$rowTag['tag']."</option>";
+
+                                    }?>
                     </li>
                     <!-- <div class="inputFile" style="margin-top:2%">
                         <input type="file" name="arquivo" id="arquivo">

@@ -90,6 +90,7 @@ include 'pdoconfig.php';
                 <ul>
                     <li><a href="">PRODUTOS</a></li>
                     <li><a href="adicionarProduto.php">ADICINAR</a></li>
+                    <li><a href="gerenciadorTags.php">TAGS</a></li>
 
                 </ul>
             </div>
