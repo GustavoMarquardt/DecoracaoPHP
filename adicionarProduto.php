@@ -10,7 +10,7 @@ $sql = ("SELECT * FROM tags ORDER BY tag ASC");
 $result = mysqli_query($link, $sql);
 $row = mysqli_num_rows($result);
 
-       
+
 
 try {
     $pdo = new PDO($dns, $user, $pass);
@@ -18,7 +18,7 @@ try {
     if (isset($_FILES['arquivo'])) {
 
         $extensao = strtolower(substr($_FILES['arquivo']['name'], -4));
-        $novo_nome = md5(time()) . $extensao;
+        $novo_nome = md5(time()) . '.jpeg';
         $diretorio = "upload/";
 
         move_uploaded_file($_FILES['arquivo']['tmp_name'], $diretorio . $novo_nome); //move o arquivo para a pasta upload
@@ -191,25 +191,24 @@ try {
                     </li>
                     <li>
                         <div>
-                        <label for="preco">Tag:</label>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                               
-                                </div>
-                                <select class="custom-select" name="tag" id="inputGroupSelect01" style=" width:96%; height:10%;margin-left:2%;margin-right:2%">
-                              
-                                    <?php
-                                    while($row = mysqli_fetch_assoc($result)  ) {
-                                        echo "<option required value='".$row['id']."'>".$row['tag']."</option>";
+                            <label for="preco">Tag:</label>
+                            <div class="input-group mb-4">
+                                <select class="custom-select margin-botton:5%" name="tag" id="inputGroupSelect01" style=" width:96%; height:10%;margin-left:2%;margin-right:2%">
 
-                                    }?>
+                                    <?php
+                                    while ($row = mysqli_fetch_assoc($result)) {
+                                        echo "<option required value='" . $row['id'] . "'>" . $row['tag'] . "</option>";
+                                    } ?>
                             </div>
                     </li>
-                    <div class="inputFile" style="margin-top:20%">
-                        <input type="file" name="arquivo" id="arquivo">
-                    </div>
-                    <input type="submit" value="Enviar" class="btn" style="margin-top: 2%; margin-bottom: 5%;">
+
+
                 </ul>
+
+                <div class="inputFile mt-4" style="margin-top:20%;background-color:black">
+                    <input type="file" name="arquivo" id="arquivo" required>
+                </div>
+                <input type="submit" value="Enviar" class="btn" style="margin-top: 2%; margin-bottom: 5%;">
             </form>
         </div>
 </body>

@@ -3,35 +3,65 @@
 
 session_start();
 include_once 'pdoconfig.php';
-if($_GET['acao'] == 'excluirTag'){
-    $id = $_GET['id'];
-    $sql = "DELETE FROM tags WHERE id=$id";
-    $result = mysqli_query($link, $sql);
-    if($result){
-        echo "<script>alert('Tag excluída com sucesso!');</script>";
-        echo "<script>window.location.href = 'gerenciadorTags.php';</script>";
-    }else{
-        echo "<script>alert('Erro ao excluir tag!');</script>";
-        echo "<script>window.location.href = 'controleImg.php';</script>";
-    }
 
-}
-if ($_GET['acao'] == 'excluir') {
-    echo 'entrei';
+if ($_GET['acao'] == 'add') {
     $id = $_GET['id'];
     $sql = "SELECT * FROM produtos WHERE id=$id";
     $result = mysqli_query($link, $sql);
     $array = mysqli_fetch_assoc($result);
-    $query_del = "DELETE FROM produtos WHERE id=$id";
+    $nomeTable = $array['imagem'];
+    $nomeTable = md5($nomeTable);
+    $sqlCreate = "CREATE TABLE $nomeTable (id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY, imagem VARCHAR(200) NOT NULL, paiImg VARCHAR(200) NOT NULL)";
+    $resultCreate = mysqli_query($link, $sqlCreate)or die(mysqli_error($link));
+    if ($resultCreate) {
+        $sqlEdit = "UPDATE produtos SET tabelaImg = '$nomeTable' WHERE id =$id";
+        $resultEdit = mysqli_query($link, $sqlEdit) or die(mysqli_error($link));
+        if ($resultEdit) {
+            echo "<script>alert('Tabela criada com sucesso!');</script>";
+            echo "<script>window.location.href = 'editarProduto.php?id=$id';</script>";
+        } else {
+            echo "<script>alert('Erro ao editar tabela!');</script>";
+            echo "<script>window.location.href = 'editarProduto.php?id=$id';</script>";
+        }
+        echo "<script>alert('Imagem adicionada com sucesso!');</script>";
+        echo "<script>window.location.href = 'editarProduto.php?id=$id';</script>";
+    } else {
+        echo "<script>alert('Erro ao criar tabela!');</script>";
+        echo "<script>window.location.href = 'editarProduto.php?id=$id';</script>";
+    }
+}
+//excluir a tag
+if ($_GET['acao'] == 'excluirTag') {
+    $id = $_GET['id'];
+    $sql = "DELETE FROM tags WHERE id=$id";
+    $result = mysqli_query($link, $sql);
+    if ($result) {
+        echo "<script>alert('Tag excluída com sucesso!');</script>";
+        echo "<script>window.location.href = 'gerenciadorTags.php';</script>";
+    } else {
+        echo "<script>alert('Erro ao excluir tag!');</script>";
+        echo "<script>window.location.href = 'gerenciadorTags.php';</script>";
+    }
+}
+// excluir o produto e a imagem
+if ($_GET['acao'] == 'excluir') {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM produtos WHERE id=$id";
+    $result = mysqli_query($link, $sql);
+    $array = mysqli_fetch_assoc($result);
+    // $tabela = $array['tabelaImg'];
+    // $sqlSon = "DROP TABLE $tabela";
+    // $resultSon = mysqli_query($link, $sqlSon);
+    // $query_del = "DELETE FROM produtos WHERE id=$id";
     if (mysqli_query($link, $query_del)) {
         if (unlink('upload/' . $array['imagem']) == true) {
             echo '<script>alert("Produto excluido com sucesso!");</script>';
             echo '<script>window.location="admHomeListarProdutos.php";</script>';
         }
     }
-} 
-
-if($_GET['acao'] == 'edit'){
+}
+//editar o produto
+if ($_GET['acao'] == 'edit') {
     $id = $_GET['id'];
     $novo_nome =  $_POST['nome'];
     $novo_descricao = $_POST['descricao'];
@@ -44,6 +74,4 @@ if($_GET['acao'] == 'edit'){
         echo '<script>alert("Produto editado com sucesso!");</script>';
         echo '<script>window.location="admHomeListarProdutos.php";</script>';
     }
-    
-
 }

@@ -119,10 +119,10 @@ try {
             </div>
         </div>
         <div>
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST">
                 <div class="input-group mb-3" style="margin-top: 5%; width:50% ;margin-left:5%">
                     <button class="btn btn-outline-secondary" type="submit" id="button-addon1">Adicionar Tag</button>
-                    <input type="text" name="tag" id="tag" class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
+                    <input type="text" name="tag" id="tag"  class="form-control" placeholder="" aria-label="Example text with button addon" aria-describedby="button-addon1">
                 </div>
             </form>
             <div class="corpo" style="margin:5% ;background-color:#696969">

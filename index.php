@@ -12,7 +12,7 @@ $resultado_curso = mysqli_query($link, $result_curso);
 $total_cursos = mysqli_num_rows($resultado_curso);
 
 //Seta a quantidade de cursos por pagina
-$quantidade_pg = 20;
+$quantidade_pg = 5;
 
 //calcular o número de pagina necessárias para apresentar os cursos
 $num_pagina = ceil($total_cursos / $quantidade_pg);
