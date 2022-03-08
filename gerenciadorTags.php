@@ -134,9 +134,10 @@ try {
                                 if ($row > 0) {
                                     echo "<thead>
                     <tr>
-                    <th scope='col' style='color:white'>ID</th>
-                    <th scope='col' style='color:white'>TAG</th>
-                    <th scope='col' style='color:white'>Ações</th>
+                    <th scope='col' style='color:white'>Número</th>
+                    <th scope='col' style='color:white'>Tag</th>
+                    <th scope='col' style='color:white'>Procura</th>
+                    <th scope='col' style='color:white'>Excluir</th>
                     </tr>
                     </thead>";
                                     while ($row = mysqli_fetch_assoc($result)) {
@@ -144,7 +145,8 @@ try {
                                         echo "<tbody>
                         <tr>
                         <th scope='row' style='color:white'>" . $i . "</th>
-                        <td  style='color:white'>" . $row['tag'] . "</td>
+                        <td  style='color:white'; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;>" . $row['tag'] . "</td>
+                        <td  style='color:white'; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;>" . $row['procura'] . "</td>
                         <td><a href=controleTags.php?acao=excluirTag&id=" . $row['id'] . ">Excluir</a></td>
                    
                         </tr>

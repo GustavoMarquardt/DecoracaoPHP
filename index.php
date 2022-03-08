@@ -37,6 +37,7 @@ $total_produtos = mysqli_num_rows($resultado_produto);
     <title> Decoração presentes</title>
     <link rel="stylesheet" type="text/css" href="index.css">
 </head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 <style>
     ul {
@@ -113,9 +114,11 @@ $total_produtos = mysqli_num_rows($resultado_produto);
         }
     }
 
+  
     h3 {
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
+
 
     .bn3637 {
         display: inline-flex;
@@ -209,15 +212,15 @@ $total_produtos = mysqli_num_rows($resultado_produto);
                 <?php while ($rows_produtos = mysqli_fetch_assoc($resultado_produto)) { ?>
                     <div class="col-sm-6 col-md-4">
                         <div class="thumbnail">
-                            <a> <img src="upload/<?= $rows_produtos['imagem'] ?>" style="margin-left:15%;
+                            <a href="produtoUnico.php?id=<?=$rows_produtos['id']; ?>"> <img src="upload/<?= $rows_produtos['imagem'] ?>" style="margin-left:15%;
                     margin-top:4%;
                     max-width: 100%;
                     width: 200px;
                     height: 200px;
                     object-fit: cover;
                     "></a>
-                            <h3><?php echo $rows_produtos['nome'] ?></h3>
-                            <h3>R$ <?php echo $rows_produtos['preco'] ?></h3>
+                            <h4 style="margin-left: 2%;margin-top:2%"><?php echo $rows_produtos['nome'] ?></h4>
+                            <h4>R$ <?php echo $rows_produtos['preco'] ?></h4>
                         </div>
                     </div>
                 <?php } ?>

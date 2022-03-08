@@ -4,6 +4,25 @@
 session_start();
 include_once 'pdoconfig.php';
 
+if($_GET['acao'] == 'excluirFilho'){
+    
+    $id = $_GET['idImg'];
+    $idPai = $_GET['idPai'];
+    $sqlPai = "SELECT * FROM produtos WHERE id=$idPai";
+    $resultPai = mysqli_query($link, $sqlPai);
+    $arrayPai = mysqli_fetch_assoc($resultPai);
+    $tabelaFilho = $arrayPai['tabelaImg'];
+    $sqlFilho ="DELETE FROM $tabelaFilho WHERE id=$id";
+    $resultFilho = mysqli_query($link, $sqlFilho);
+    if($resultFilho){
+        echo "<script>alert('Imagem excluída com sucesso!');</script>";
+        echo "<script>window.location.href = 'editarProduto.php?id=$idPai';</script>";
+    } else{
+        echo "<script>alert('Imagem não foi possível de ser excluida!');</script>";
+        echo "<script>window.location.href = 'editarProduto.php?id=$idPai';</script>";
+    }
+}
+
 if ($_GET['acao'] == 'add') {
     $id = $_GET['id'];
     $sql = "SELECT * FROM produtos WHERE id=$id";

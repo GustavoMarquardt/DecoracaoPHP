@@ -171,7 +171,7 @@ try {
 
         <div class="formProdutos" style="background-color:#696969">
             <h1 style=" margin:5%;margin-top:3%; text-align: center">Adicionar produtos</h1>
-            <form method="POST" enctype="multipart/form-data">
+            <form method="POST" enctype="multipart/form-data" clas>
                 <ul>
                     <li>
                         <label for="nome">Nome:</label>
@@ -201,14 +201,14 @@ try {
                                     } ?>
                             </div>
                     </li>
-
-
+                   
                 </ul>
 
-                <div class="inputFile mt-4" style="margin-top:20%;background-color:black">
-                    <input type="file" name="arquivo" id="arquivo" required>
-                </div>
-                <input type="submit" value="Enviar" class="btn" style="margin-top: 2%; margin-bottom: 5%;">
+                <div class="inputFile  mt-4" style="margin-top:20%;background-color:black">
+                        <input type="file" name="arquivo" id="arquivo" required>
+                    </div>
+                    <input type="submit" value="Enviar" class="btn" style="margin-top: 2%; margin-bottom: 5%;">
+
             </form>
         </div>
 </body>

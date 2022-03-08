@@ -265,7 +265,7 @@ if (isset($_FILES['arquivo']) && count($_FILES['arquivo']['tmp_name']) > 0) {
                 <h1 style="margin-top:5%; text-align: center">Tabela já criada</h1>
                 <h4 style="color:white;margin-top:1%; text-align: center">Selecione as imagens para adicionalas</h4>
                 <form method="POST" enctype="multipart/form-data">
-                    <ul>
+                    <ul class="inline-block">
                         <input type="file" name="arquivo[]" multiple />
                     </ul>
                     <ul>
@@ -300,7 +300,9 @@ if (isset($_FILES['arquivo']) && count($_FILES['arquivo']['tmp_name']) > 0) {
                     height: 200px;
                     object-fit: cover;
                     ">
-                             <a href="controleImg.php?acao=excluirFilho" class="bn3637 bn37" style="color:white" onclick="return confirm('Deseja excluir o produto?')">Excluir</a>
+                    <?php $idImg = $imgs['id'] ?>
+                             <a href="controleImg.php?acao=excluirFilho&idImg=<?= $imgs['id']; ?>&idPai=<?= $id ?>"
+                              class="bn3637 bn37" style="color:white" onclick="return confirm('Deseja excluir o produto?')">Excluir</a>
                         </div>
                 <?php
                 }
